@@ -3,7 +3,7 @@
 .cover-page-index-slide:hover #tips li.cur {background:#FC7878;}
 #tips li span {display:block;height:100%;width:0;background:#FC7878;}
 .cover-page-index-slide a.show_pre,
-.cover-page-index-slide a.show_next {position:absolute;top:186px;display: none;height:55px;width:55px;text-indent: -9999px;background-repeat: no-repeat;}
+.cover-page-index-slide a.show_next {position:absolute;top:35px;display: none;height:55px;width:55px;text-indent: -9999px;background-repeat: no-repeat;}
 .cover-page-index-slide a.show_pre {left:-320px;background-image: url(../images/cover-page-slide-icon-left.png);}
 .cover-page-index-slide a.show_next {right:-320px;background-image: url(../images/cover-page-slide-icon-right.png);}
 
@@ -23,8 +23,8 @@
 /*cover-page-index-slide css*/
 
 .cover-page-index-slide .border {position: relative;overflow: hidden;}
-.cover-page-index-slide .center {width: 1210px;height: 425px;margin: 0 auto;}
-.cover-page-index-slide .center .relative {position: relative;height: 425px;}
+.cover-page-index-slide .center {width: 1210px;height: 125px;margin: 0 auto;}
+.cover-page-index-slide .center .relative {position: relative;height: 125px;}
 .cover-page-index-slide .center .relative .location {position: absolute;left: -355px;}
 
 /*首页框架样式*/
