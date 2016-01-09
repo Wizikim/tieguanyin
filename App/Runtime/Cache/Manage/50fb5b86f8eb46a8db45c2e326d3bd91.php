@@ -3,12 +3,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo ($sitename); ?> - <?php echo (C("setting.Copyright")); ?> <?php echo (C("setting.Version")); ?> <?php echo (C("setting.Code")); ?></title>
-<script language="javascript" type="text/javascript" src="/tuzicms/App/Manage/View/Default/js/jquery.js"></script>
-<script src="/tuzicms/App/Manage/View/Default/js/frame.js" language="javascript" type="text/javascript"></script>
-<link href="/tuzicms/App/Manage/View/Default/css/style.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript" src="/mycms/upload/App/Manage/View/Default/js/jquery.js"></script>
+<script src="/mycms/upload/App/Manage/View/Default/js/frame.js" language="javascript" type="text/javascript"></script>
+<link href="/mycms/upload/App/Manage/View/Default/css/style.css" rel="stylesheet" type="text/css" />
 
 <!--[if IE 6]>
-<script src="/tuzicms/App/Manage/View/Default/Js/DD_belatedPNG.js" language="javascript" type="text/javascript"></script>
+<script src="/mycms/upload/App/Manage/View/Default/Js/DD_belatedPNG.js" language="javascript" type="text/javascript"></script>
 <script>
   DD_belatedPNG.fix('.nav ul li a,.top_link ul li,background');   /* string argument can be any CSS selector */
 </script>
@@ -16,7 +16,7 @@
 </head>
 <body class="showmenu">
 
-<script src="/tuzicms/App/Manage/View/Default/js/common.js" type="text/javascript"></script>
+<script src="/mycms/upload/App/Manage/View/Default/js/common.js" type="text/javascript"></script>
  <script type="text/javascript">
   function clear_del()
   {
@@ -37,7 +37,7 @@
         
     <div class="operate">
         <div class="left">
-		<input type="button" onclick="window.open('/tuzicms/index.php/manage/category/add','main')" target="main" class="btn_blue" value="添加栏目">
+		<input type="button" onclick="window.open('/mycms/upload/index.php/manage/category/add','main')" target="main" class="btn_blue" value="添加栏目">
 		
 		<input class="btn_blue" type="button" onClick="return clear_del();"  value="删除" />   
 		
@@ -47,7 +47,7 @@
 		</div>
     </div>
     <div class="list">    
-    <form action="/tuzicms/index.php/manage/category/sortcate" method="post" id="form_do" name="form_do">
+    <form action="/mycms/upload/index.php/manage/category/sortcate" method="post" id="form_do" name="form_do">
         <table width="100%">
             <tr>
                 <th><input  name="chkall" type="checkbox" id="chkall" onclick="selectall(this.form)"></th>
@@ -78,11 +78,11 @@
                 <td><input type="text" name="<?php echo ($v["id"]); ?>" value="<?php echo ($v["column_sort"]); ?>" /></td>
 				<td><?php if($v['column_status']==0): ?>是<?php else: ?><span>否</span><?php endif; ?></td>
                 <td>
-				<a href="/tuzicms/index.php/manage/category/add/id/<?php echo ($v["id"]); ?>">添加子栏目</a>
+				<a href="/mycms/upload/index.php/manage/category/add/id/<?php echo ($v["id"]); ?>">添加子栏目</a>
 
                 
-                <a href="/tuzicms/index.php/manage/category/edit/id/<?php echo ($v["id"]); ?>">修改</a>
-                <a href="/tuzicms/index.php/manage/category/delete/id/<?php echo ($v["id"]); ?>" onclick="return confirm('是否确定删除?')">删除</a>
+                <a href="/mycms/upload/index.php/manage/category/edit/id/<?php echo ($v["id"]); ?>">修改</a>
+                <a href="/mycms/upload/index.php/manage/category/delete/id/<?php echo ($v["id"]); ?>" onclick="return confirm('是否确定删除?')">删除</a>
 				</td>
             </tr><?php endforeach; endif; else: echo "" ;endif; endif; ?>	
         </table>
