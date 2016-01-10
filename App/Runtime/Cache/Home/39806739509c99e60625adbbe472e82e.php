@@ -182,204 +182,232 @@ $(function(){
 
 <!--
 <div id="announcement_main">
-<div id="announcement">
+	<div id="announcement">
 		<div class="announcement_title">网站公告：</div>
-		<div class="announcement_body">
-				<ul class="announcementlist">
 
+		<div class="announcement_body">
+			<ul class="announcementlist">
 				<?php
  $_link_m=D('Notice')->order("id desc")->limit("0,5")->select(); foreach($_link_m as $k2 => $v2){ $_link_m[$k2]['notice_title'] = Common\Lib\Common::substr_ext($v2['notice_title'], 0, 22, 'utf-8',""); } foreach($_link_m as $_link_v): extract($_link_v); ?><li><a href="<?php echo ($notice_url); ?>" title="<?php echo ($notice_title); ?>"><?php echo ($notice_title); ?></a>  [<?php echo (date('Y-m-d H:i:s', $notice_time)); ?>]</li><?php endforeach;?>
-
-				</ul>
+			</ul>
 		</div>
-</div><script type='text/javascript'>
+	</div>
+	<script type='text/javascript'>
 		$(document).ready(function(){
 			$('#announcement').slide({
-				  mainCell:'ul.announcementlist', autoPlay:true, interTime:3000,     vis:1,    effect:'topLoop'
+			  mainCell:'ul.announcementlist', autoPlay:true, interTime:3000,     vis:1,    effect:'topLoop'
 		})
 	</script>
 </div>
 -->
+
 <div class="column mar-t-30  ov">
 	<div class="f-l xtdt ov w-450">
-      		<h2>最新文章</h2>
-      		<div class="jies">               
-    			<?php
+		<h2>最新文章</h2>
+		<div class="jies">               
+			<?php
  $id=2; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,3")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><dl>
 					<dt><a href="<?php echo ($url); ?>"><img src="<?php echo ($news_pic); ?>"  width="86" height="62"/></a></dt>
 					<dd class="eee"><?php echo (cutstr($news_title,20)); ?></dd>
 					<dd><?php echo (cutstr($news_content,48)); ?> &nbsp;<a href="<?php echo ($url); ?>">详情>></a></dd>
 				</dl><?php endforeach;?>
-			</div>
+		</div>
   </div>
-		<div class="f-l xtdt ov w-450">
-      		<h2>月排行</h2>
-      		<div class="jies">               
-    			<?php
- $id=2; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,3")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><dl>
+	<div class="f-l xtdt ov w-450">
+		<h2>推荐文章</h2>
+		<div class="jies">               
+			<?php
+ $id=2; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,3")->order('r.news_hits ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><dl>
 					<dt><a href="<?php echo ($url); ?>"><img src="<?php echo ($news_pic); ?>"  width="86" height="62"/></a></dt>
 					<dd class="eee"><?php echo (cutstr($news_title,20)); ?></dd>
 					<dd><?php echo (cutstr($news_content,48)); ?> &nbsp;<a href="<?php echo ($url); ?>">详情>></a></dd>
 				</dl><?php endforeach;?>
-			</div>
+		</div>
   </div>
 </div>
+
 <div class="column mar-t-30  ov">
 	<div class="f-l xtdt ov w-450">
-      		<h2>精华文章</h2>
-      		<div class="jies">               
-    			<?php
+		<h2>周排行</h2>
+		<div class="jies">               
+			<?php
  $id=2; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,3")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><dl>
 					<dt><a href="<?php echo ($url); ?>"><img src="<?php echo ($news_pic); ?>"  width="86" height="62"/></a></dt>
 					<dd class="eee"><?php echo (cutstr($news_title,20)); ?></dd>
 					<dd><?php echo (cutstr($news_content,48)); ?> &nbsp;<a href="<?php echo ($url); ?>">详情>></a></dd>
 				</dl><?php endforeach;?>
-			</div>
+		</div>
   </div>
-		<div class="f-l xtdt ov w-450">
-      		<h2>总排行</h2>
-      		<div class="jies">               
-    			<?php
- $id=2; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,3")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><dl>
+	<div class="f-l xtdt ov w-450">
+		<h2>总排行</h2>
+		<div class="jies">               
+			<?php
+ $id=2; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,3")->order('r.news_updatetime ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><dl>
 					<dt><a href="<?php echo ($url); ?>"><img src="<?php echo ($news_pic); ?>"  width="86" height="62"/></a></dt>
 					<dd class="eee"><?php echo (cutstr($news_title,20)); ?></dd>
 					<dd><?php echo (cutstr($news_content,48)); ?> &nbsp;<a href="<?php echo ($url); ?>">详情>></a></dd>
 				</dl><?php endforeach;?>
-			</div>
+		</div>
   </div>
 </div>
+
 <div class="column mar-t-30  ov">
-	<div style="margin-left:12px;"><h2>公司产品</h2>
+	<div style="margin-left:12px;">
+		<h2>公司产品</h2>
 	</div>
-  	<div class="con1">
+
+  <div class="con1">
     <ul class="con1ul">
-		<?php
+			<?php
  $id=8; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img">
-			<img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img">
+					<img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
         </li><?php endforeach;?>
-	</ul>
+		</ul>
+	</div>
 </div>
-</div>
+
 <div class="column mar-t-30  ov">
-	<div style="margin-left:12px;"><h2>公司相册</h2>
+	<div style="margin-left:12px;">
+		<h2>公司相册</h2>
 	</div>
-  	<div class="con1">
-    <ul class="con1ul">
-		<?php
+	<div class="con1">
+  	<ul class="con1ul">
+			<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
-        </li><?php endforeach;?>
-	</ul>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+	      </li><?php endforeach;?>
+		</ul>
+	</div>
 </div>
+
 <div class="column mar-t-30  ov">
-	<div style="margin-left:12px;"><h2>公司相册</h2>
+	<div style="margin-left:12px;">
+		<h2>公司相册</h2>
 	</div>
-  	<div class="con1">
-    <ul class="con1ul">
+	<div class="con1">
+  <ul class="con1ul">
 		<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
-        </li><?php endforeach;?>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+      </li><?php endforeach;?>
 	</ul>
 	</div>
-  	<div class="con1">
+
+	<div class="con1">
     <ul class="con1ul">
-		<?php
+			<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
         </li><?php endforeach;?>
-	</ul>
+		</ul>
+	</div>
 </div>
+
 <div class="column mar-t-30  ov">
-	<div style="margin-left:12px;"><h2>公司相册</h2>
+	<div style="margin-left:12px;">
+		<h2>公司相册</h2>
 	</div>
-  	<div class="con1">
-    <ul class="con1ul">
+	<div class="con1">
+  <ul class="con1ul">
 		<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
-        </li><?php endforeach;?>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+      </li><?php endforeach;?>
 	</ul>
 	</div>
-  	<div class="con1">
+
+	<div class="con1">
     <ul class="con1ul">
-		<?php
+			<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
         </li><?php endforeach;?>
-	</ul>
+		</ul>
+	</div>
 </div>
+
 <div class="column mar-t-30  ov">
-	<div style="margin-left:12px;"><h2>公司相册</h2>
+	<div style="margin-left:12px;">
+		<h2>公司相册</h2>
 	</div>
-  	<div class="con1">
-    <ul class="con1ul">
+	<div class="con1">
+  <ul class="con1ul">
 		<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
-        </li><?php endforeach;?>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+      </li><?php endforeach;?>
 	</ul>
 	</div>
-  	<div class="con1">
+
+	<div class="con1">
     <ul class="con1ul">
-		<?php
+			<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
         </li><?php endforeach;?>
-	</ul>
+		</ul>
+	</div>
 </div>
+
 <div class="column mar-t-30  ov">
-	<div style="margin-left:12px;"><h2>公司相册</h2>
+	<div style="margin-left:12px;">
+		<h2>公司相册</h2>
 	</div>
-  	<div class="con1">
-    <ul class="con1ul">
+	<div class="con1">
+  <ul class="con1ul">
 		<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
-        </li><?php endforeach;?>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+      </li><?php endforeach;?>
 	</ul>
 	</div>
-  	<div class="con1">
+
+	<div class="con1">
     <ul class="con1ul">
-		<?php
+			<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
         </li><?php endforeach;?>
-	</ul>
+		</ul>
+	</div>
 </div>
+
 <div class="column mar-t-30  ov">
-	<div style="margin-left:12px;"><h2>公司相册</h2>
+	<div style="margin-left:12px;">
+		<h2>公司相册</h2>
 	</div>
-  	<div class="con1">
-    <ul class="con1ul">
+	<div class="con1">
+  <ul class="con1ul">
 		<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
-        </li><?php endforeach;?>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+      </li><?php endforeach;?>
 	</ul>
 	</div>
-  	<div class="con1">
+
+	<div class="con1">
     <ul class="con1ul">
-		<?php
+			<?php
  $id=10; $topcate=M('Column')->where("id=$id")->order('column_sort')->select(); $m=M('Column')->order('column_sort')->select(); foreach ($topcate as $k => $v4){ $cids=Common\Lib\Category::getChildsId($m, $v4['id']); $cids[]=$v4['id']; } $id=1; $m=D('Attr'); $data['g.id']= $id; $where=array('nv_id'=>array('IN', $cids)); $field='g.id,g.attr_name,g.attr_color,i.news_id,i.attr_id,r.id,r.nv_id,r.news_title,r.news_content,r.news_hits,r.news_author,r.news_addtime,r.news_updatetime,r.news_sort,r.news_pic,f.column_name,m.model_table'; $result=$m->alias('g')->join('LEFT JOIN tuzi_attr_news i ON i.attr_id = g.id')->join('LEFT JOIN tuzi_news r ON r.id = i.news_id')->join('LEFT JOIN tuzi_column f ON f.id = r.nv_id')->join('LEFT JOIN tuzi_model m ON m.id = f.column_type')->field($field)->limit("0,5")->order('r.news_sort ')->where($data)->where($where)->where("news_dell=0")->select(); foreach($result as $k2 => $v2){ $result[$k2]['news_title'] = Common\Lib\Common::substr_ext($v2['news_title'], 0, 25, 'utf-8',""); } foreach($result as $k2 => $v2){ $result[$k2]['news_content'] = Common\Lib\Common::substr_ext($v2['news_content'], 0, 80, 'utf-8',""); } foreach($result as $k2 => $v2){ $pic=$v2['news_pic']; strpos($pic, "nopic"); if (strpos($pic, "nopic")==''){ $result[$k2]['news_pic'] = '/mycms/upload'.$v2['news_pic']; }else{ $result[$k2]['news_pic'] = '/mycms/upload'."/Data/Images/nopic.jpg"; } } $modlu='/mycms/upload/index.php/home/index/index'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } }else { foreach($result as $k3 => $v3){ $result[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['model_table'].'/'.detail.'/'.'id'.'/'.$v3['id']; } } foreach($result as $result_v): extract($result_v); ?><li>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
-            <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_img"><img src="<?php echo ($news_pic); ?>"  alt="<?php echo ($news_title); ?>" class="PicAuto" /></a>
+          <a href="<?php echo ($url); ?>" title="<?php echo ($news_title); ?>" class="con1_link"><?php echo ($news_title); ?></a>
         </li><?php endforeach;?>
-	</ul>
+		</ul>
+	</div>
 </div>
-</div>
+
 <!-- 页脚 -->
 ﻿
 <div class="footer ov fz-12" style="clear:both">

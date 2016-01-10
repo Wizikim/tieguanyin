@@ -55,7 +55,7 @@
                 <th>名称</th>
                 <th>栏目模型</th>
                 <th>排序</th>
-				<th>导航栏显示</th>
+				        <th>导航栏显示</th>
                 <th>操作</th>
             </tr>
 			
@@ -65,25 +65,26 @@
 			<?php else: ?> 
 			<?php if(is_array($vlist)): $i = 0; $__LIST__ = $vlist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$v): $mod = ($i % 2 );++$i;?><tr>
                 <td><input type="checkbox" name="id[]" value="<?php echo ($v["id"]); ?>" ></td>
+                
                 <td><?php echo ($v["id"]); ?></td>
-				
+								
                 <td class="aleft">
-				<?php if($v['column_link']==1): echo ($v["html"]); ?> <span style="color:#000000"><?php echo ($v["column_name"]); ?></span>
-				<?php else: ?>
-				<?php echo ($v["html"]); ?> <a href="<?php echo ($v["url"]); ?>"><?php echo ($v["column_name"]); ?></a><?php endif; ?>	
-				</td>
+										<?php if($v['column_link']==1): echo ($v["html"]); ?> <span style="color:#000000"><?php echo ($v["column_name"]); ?></span>
+										<?php else: ?>
+										<?php echo ($v["html"]); ?> <a href="<?php echo ($v["url"]); ?>"><?php echo ($v["column_name"]); ?></a><?php endif; ?>	
+								</td>
 				
                 <td align="center"><?php echo ($v["model_name"]); ?></td>
 				
                 <td><input type="text" name="<?php echo ($v["id"]); ?>" value="<?php echo ($v["column_sort"]); ?>" /></td>
-				<td><?php if($v['column_status']==0): ?>是<?php else: ?><span>否</span><?php endif; ?></td>
-                <td>
-				<a href="/mycms/upload/index.php/manage/category/add/id/<?php echo ($v["id"]); ?>">添加子栏目</a>
-
+				
+								<td><?php if($v['column_status']==0): ?>是<?php else: ?><span>否</span><?php endif; ?></td>
                 
-                <a href="/mycms/upload/index.php/manage/category/edit/id/<?php echo ($v["id"]); ?>">修改</a>
-                <a href="/mycms/upload/index.php/manage/category/delete/id/<?php echo ($v["id"]); ?>" onclick="return confirm('是否确定删除?')">删除</a>
-				</td>
+                <td>
+										<a href="/mycms/upload/index.php/manage/category/add/id/<?php echo ($v["id"]); ?>">添加子栏目</a>               
+                		<a href="/mycms/upload/index.php/manage/category/edit/id/<?php echo ($v["id"]); ?>">修改</a>
+                		<a href="/mycms/upload/index.php/manage/category/delete/id/<?php echo ($v["id"]); ?>" onclick="return confirm('是否确定删除?')">删除</a>
+								</td>
             </tr><?php endforeach; endif; else: echo "" ;endif; endif; ?>	
         </table>
 

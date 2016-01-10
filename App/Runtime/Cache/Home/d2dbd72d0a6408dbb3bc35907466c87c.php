@@ -99,41 +99,43 @@ $(function(){
 </script>
 <div class="header" >
 	<div class="column">
-        <div class="top-bar">
-		<div class="nav_left">
-		欢迎您访问<?php echo (C("setting.Software")); ?>演示网站！
-		</div>
-		<div class="nav_right"> 
-
-		<div id="top_login_no">
-		<img src="/mycms/upload/Public/Home/Default/images/register.png"  class="top_images" />
-		<a href="/mycms/upload/index.php/user/register">会员注册</a>
-		<img src="/mycms/upload/Public/Home/Default/images/loginin.png" class="top_images" />	
-		<a href="/mycms/upload/index.php/user/login">会员登录</a>	
-		</div>
-		<div id="top_login_ok" style="display:none;">
-		<span>欢迎您， </span>
-		<img src="/mycms/upload/Public/Home/Default/images/login.png" class="top_images" />
-		<a href="/mycms/upload/index.php/user/index">会员中心</a>
-		<img src="/mycms/upload/Public/Home/Default/images/loginout.png" class="top_images" />
-		<a href="/mycms/upload/index.php/user/do_out">安全退出</a>
-		</div>	
-
-		</div>   
-        </div>
+    <div class="top-bar">
+			<div class="nav_left">
+					欢迎您访问<?php echo (C("setting.Software")); ?>网站！
+			</div>
+			<div class="nav_right">
+				<div id="top_login_no">
+					<img src="/mycms/upload/Public/Home/Default/images/register.png"  class="top_images" />
+					<a href="/mycms/upload/index.php/user/register">会员注册</a>
+					<img src="/mycms/upload/Public/Home/Default/images/loginin.png" class="top_images" />	
+					<a href="/mycms/upload/index.php/user/login">会员登录</a>	
+				</div>
+				
+				<div id="top_login_ok" style="display:none;">
+					<span>欢迎您， </span>
+					<img src="/mycms/upload/Public/Home/Default/images/login.png" class="top_images" />
+					<a href="/mycms/upload/index.php/user/index">会员中心</a>
+					<img src="/mycms/upload/Public/Home/Default/images/loginout.png" class="top_images" />
+					<a href="/mycms/upload/index.php/user/do_out">安全退出</a>
+				</div>
+			</div>   
+	  </div>
 	</div>
 	<div class="column" style="clear:both">
-    	<div class="logo"><a href="/mycms/upload/index.php"><img alt="TuziCMS-企业网站内容管理系统" height="62" src="/mycms/upload/Public/Home/Default/images/logo.png" /></a></div>			
-        <div class="nav">
-            <ul id="menu">
+  	<div class="logo">
+			<a href="/mycms/upload/index.php"><img alt="TuziCMS-企业网站内容管理系统" height="62" src="/mycms/upload/Public/Home/Default/images/logo.png" /></a>
+  	</div>
+  			
+    <div class="nav">
+      <ul id="menu">
 						
 <?php
  $_nav_m=D('Column')->order("column_sort")->field('id,f_id,column_name,column_ename,column_url,column_type,column_sort,column_status,column_link')->where("column_status=0")->relation(true)->select(); $_nav_m=Common\Lib\Category::unlimitedForLayer($_nav_m); $modlu='/mycms/upload/index.php/home/download/group'; strpos($modlu, "mobile"); if (strpos($modlu, "mobile")==''){ foreach($_nav_m as $k3 => $v3){ if($v3['column_link']==1){ $_nav_m[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['column_url']; } if($v3['column_link']==2){ $_nav_m[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['column_ename']; } if($v3['column_link']==0){ $_nav_m[$k3]['url'] = '/mycms/upload/index.php'.'/'.$v3['url'].'/'.group.'/'.'id'.'/'.$v3['id']; } } }else { foreach($_nav_m as $k3 => $v3){ if($v3['column_link']==1){ $_nav_m[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['column_url']; } if($v3['column_link']==2){ $_nav_m[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['column_ename']; } if($v3['column_link']==0){ $_nav_m[$k3]['url'] = '/mycms/upload/index.php'.'/'.'mobile'.'/'.$v3['url'].'/'.group.'/'.'id'.'/'.$v3['id']; } } } foreach($_nav_m as $autoindex => $_nav_v): extract($_nav_v); ?><li id="dr_nav_<?php echo ($id); ?>">
-				<a href="<?php echo ($url); ?>" class="nav-a"><?php echo ($column_name); ?></a>
-				</li><?php endforeach;?>
-            </ul>
-        </div>
+						<a href="<?php echo ($url); ?>" class="nav-a"><?php echo ($column_name); ?></a>
+					</li><?php endforeach;?>
+       </ul>
     </div>
+  </div>
 </div>
 
 
@@ -209,7 +211,7 @@ $(function(){
 <div style="height:60px; line-height:60px; text-align:center; background:#F5F5F5;">
 <div id="ft" class="w cl">
 
-<em>&copy; 2014-2015 <strong><a href="http://www.Yejiao.net" target="_blank" style="color:#4CB32E;">Yejiao Team</a></strong> 版权所有</em>
+<em>&copy; 2014-2015 <strong><a href="http://www.Yejiao.net" target="_blank" style="color:#4CB32E;">FreeSoftware</a></strong> 版权所有</em>
  &nbsp; &nbsp;
 <em>本站由<strong><a href="http://www.tuzicms.com" target="_blank" style="color:#4CB32E;"> <?php echo (C("setting.Software")); ?> </a></strong>强力驱动</em>
 </div>

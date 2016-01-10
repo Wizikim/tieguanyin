@@ -78,9 +78,9 @@
 		</div>
   </div>
 	<div class="f-l xtdt ov w-450">
-		<h2>月排行</h2>
+		<h2>推荐文章</h2>
 		<div class="jies">               
-			<newslist nvid='2' limit="0,3" order='news_sort' type='1'>
+			<newslist nvid='2' limit="0,3" order='news_hits' type='1'>
     		<dl>
 					<dt><a href="<{$url}>"><img src="<{$news_pic}>"  width="86" height="62"/></a></dt>
 					<dd class="eee"><{$news_title|cutstr=20}></dd>
@@ -93,7 +93,7 @@
 
 <div class="column mar-t-30  ov">
 	<div class="f-l xtdt ov w-450">
-		<h2>精华文章</h2>
+		<h2>周排行</h2>
 		<div class="jies">               
 			<newslist nvid='2' limit="0,3" order='news_sort' type='1'>
 				<dl>
@@ -107,7 +107,7 @@
 	<div class="f-l xtdt ov w-450">
 		<h2>总排行</h2>
 		<div class="jies">               
-			<newslist nvid='2' limit="0,3" order='news_sort' type='1'>
+			<newslist nvid='2' limit="0,3" order='news_updatetime' type='1'>
     		<dl>
 					<dt><a href="<{$url}>"><img src="<{$news_pic}>"  width="86" height="62"/></a></dt>
 					<dd class="eee"><{$news_title|cutstr=20}></dd>

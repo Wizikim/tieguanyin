@@ -39,7 +39,7 @@
                 <th>名称</th>
                 <th>栏目模型</th>
                 <th>排序</th>
-				<th>导航栏显示</th>
+				        <th>导航栏显示</th>
                 <th>操作</th>
             </tr>
 			
@@ -51,30 +51,31 @@
 			<volist name='vlist' id='v'>
             <tr>
                 <td><input type="checkbox" name="id[]" value="<{$v.id}>" ></td>
+                
                 <td><{$v.id}></td>
-				
+								
                 <td class="aleft">
-				<if condition="$v['column_link']==1">
-				<{$v.html}> <span style="color:#000000"><{$v.column_name}></span>
-				<else />
-				<{$v.html}> <a href="<{$v.url}>"><{$v.column_name}></a>
-				</if>	
-				</td>
+										<if condition="$v['column_link']==1">
+										<{$v.html}> <span style="color:#000000"><{$v.column_name}></span>
+										<else />
+										<{$v.html}> <a href="<{$v.url}>"><{$v.column_name}></a>
+										</if>	
+								</td>
 				
                 <td align="center"><{$v.model_name}></td>
 				
                 <td><input type="text" name="<{$v.id}>" value="<{$v.column_sort}>" /></td>
-				<td><if condition="$v['column_status']==0">是<else/><span>否</span></if></td>
-                <td>
-				<a href="__URL__/add/id/<{$v.id}>">添加子栏目</a>
-
+				
+								<td><if condition="$v['column_status']==0">是<else/><span>否</span></if></td>
                 
-                <a href="__URL__/edit/id/<{$v.id}>">修改</a>
-                <a href="__URL__/delete/id/<{$v.id}>" onclick="return confirm('是否确定删除?')">删除</a>
-				</td>
+                <td>
+										<a href="__URL__/add/id/<{$v.id}>">添加子栏目</a>               
+                		<a href="__URL__/edit/id/<{$v.id}>">修改</a>
+                		<a href="__URL__/delete/id/<{$v.id}>" onclick="return confirm('是否确定删除?')">删除</a>
+								</td>
             </tr>
 			
-            </volist>
+      </volist>
 			</empty>	
         </table>
 
