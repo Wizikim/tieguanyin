@@ -130,10 +130,10 @@
 .product_title{ font-size:16px;font-weight: bold;}
 
 /*图片photo列表页内容的展示样式*/
-.casePicOuter{position:relative;width:200px;height:162px;border:1px solid #dedede;}
+.casePicOuter{position:relative;width:134px;height:168px;border:1px solid #dedede;}
 .caseConList{clear:both;width:100%;height:auto;padding-left:35px}
-.caseConList .caseForm{margin-right:18px;float:left;width:200px;height:auto;padding:10px 0px}
-.casePic a img{display:block;width:180px;height:150px;margin:5px 10px}
+.caseConList .caseForm{margin-right:18px;float:left;width:134px;height:auto;padding:10px 0px}
+.casePic a img{display:block;width:120px;height:160px;margin:5px 7px}
 .caseText{clear:both;height:40px;padding:8px 0 0 0}
 .caseText a{text-decoration:none;text-shadow:1px 1px #fff;font-size:14px;font-weight:bold; color:rgb(102, 102, 102);}
 
